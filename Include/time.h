@@ -15,16 +15,19 @@ public:
         pTIME12,
         pTIME24,
         DATE,
-        HOUR,
-        MINUTE,
-        SECOND
+        sDATE,
+        TIME_STRING
     };
 
     QLabel* label;
     explicit Time(TimeFlags flag);
+
+    explicit Time(const char *time);
+
     void SetTime() const;
 private:
     TimeFlags timeFlag;
+    const char* timeString;
 };
 
 

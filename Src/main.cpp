@@ -12,20 +12,20 @@ int main(int argc, char *argv[]) {
     QWidget window;
     window.setFixedSize(300, 600);
 
-    const Time homeScreenDate(Time::DATE);
-    const Time homeScreenTime(Time::TIME24);
+    const Time lockScreenDate(Time::DATE);
+    const Time lockScreenTime(Time::pTIME24);
 
     auto* layout = new QVBoxLayout(&window);
 
-    layout->addWidget(homeScreenDate.label, 0);
-    layout->addWidget(homeScreenTime.label, 0);
+    layout->addWidget(lockScreenDate.label, 0);
+    layout->addWidget(lockScreenTime.label, 0);
     layout->addStretch();
 
     window.show();
 
     auto* timer = new QTimer(&window);
     QObject::connect(timer, &QTimer::timeout, [&]() {
-        homeScreenTime.SetTime();
+        lockScreenTime.SetTime();
     });
     timer->start(1000);
 

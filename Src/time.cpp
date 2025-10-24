@@ -7,6 +7,15 @@
 Time::Time(const TimeFlags flag) {
     label = new QLabel("??:??");
     timeFlag = flag;
+    timeString = "";
+    SetTime();
+    label->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+}
+
+Time::Time(const char* time) {
+    label = new QLabel("??:??");
+    timeString = time;
+    timeFlag = TIME_STRING;
     SetTime();
     label->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 }
@@ -23,10 +32,9 @@ void Time::SetTime() const {
         case TIME24: oss << std::put_time(localTime, "%H:%M"); break;
         case pTIME12: oss << std::put_time(localTime, "%I:%M:%S %p"); break;
         case pTIME24: oss << std::put_time(localTime, "%H:%M:%S"); break;
-        case DATE: oss << std::put_time(localTime, "%a %d %b"); break;
-        case HOUR: oss << std::put_time(localTime, "%H"); break;
-        case MINUTE: oss << std::put_time(localTime, "%M"); break;
-        case SECOND: oss << std::put_time(localTime, "%S"); break;
+        case DATE: oss << std::put_time(localTime, "%A, %d %B"); break;
+        case sDATE: oss << std::put_time(localTime, "%a %d %b"); break;
+        case TIME_STRING: oss << std::put_time(localTime, timeString); break;
     }
 
     this->label->setText(QString::fromStdString(oss.str()));
