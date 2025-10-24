@@ -9,12 +9,17 @@
 #include <QLayout>
 
 class Pin {
+private:
+    static QWidget* gridWidget;
 public:
     static const char* buttonStyles;
 
     static void CreateButton(QGridLayout *grid, int r, int c, int digit);
 
-    static void ShowPinInput(QVBoxLayout *layout);
+    static void CreatePinInput(QVBoxLayout *layout);
+
+    static void HidePinInput();
+    static void ShowPinInput();
 };
 
 #endif //PIN_H

@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     const Time lockScreenDate(Time::DATE, layout, dateFont);
     const Time lockScreenTime(Time::TIME24, layout, timeFont);
 
-    Pin::ShowPinInput(layout);
+    Pin::CreatePinInput(layout);
 
     layout->addStretch();
 

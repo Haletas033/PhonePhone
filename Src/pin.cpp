@@ -1,5 +1,7 @@
 #include "../include/pin.h"
 
+QWidget* Pin::gridWidget = nullptr;
+
 const char* Pin::buttonStyles = R"(
     QPushButton {
         background-color: rgba(255, 255, 255, 50);
@@ -26,8 +28,8 @@ void Pin::CreateButton(QGridLayout* grid, const int r, const int c, const int di
     grid->addWidget(button, r, c);
 }
 
-void Pin::ShowPinInput(QVBoxLayout* layout) {
-    QWidget* gridWidget = new QWidget();
+void Pin::CreatePinInput(QVBoxLayout* layout) {
+    gridWidget = new QWidget();
     QGridLayout* grid = new QGridLayout(gridWidget);
 
     grid->setSpacing(5);
@@ -50,3 +52,11 @@ void Pin::ShowPinInput(QVBoxLayout* layout) {
     layout->addWidget(gridWidget, 0, Qt::AlignCenter);
     layout->addStretch(2);
 }
+
+void Pin::HidePinInput() {
+    gridWidget->hide();
+}
+void Pin::ShowPinInput() {
+    gridWidget->show();
+}
+
