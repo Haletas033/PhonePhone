@@ -6,6 +6,7 @@
 #include "../include/time.h"
 #include <QPixmap>
 
+#include "../include/pin.h"
 #include "../include/wallpaper.h"
 
 int main(int argc, char *argv[]) {
@@ -25,6 +26,8 @@ int main(int argc, char *argv[]) {
 
     const Time lockScreenDate(Time::DATE, layout, dateFont);
     const Time lockScreenTime(Time::TIME24, layout, timeFont);
+
+    Pin::ShowPinInput(layout);
 
     layout->addStretch();
 

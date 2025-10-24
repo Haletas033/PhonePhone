@@ -14,6 +14,7 @@ add_executable(PhonePhone
         Src/main.cpp
         Src/time.cpp
         Src/wallpaper.cpp
+        Src/pin.cpp
 )
 
 target_link_libraries(PhonePhone
