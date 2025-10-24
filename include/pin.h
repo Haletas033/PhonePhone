@@ -6,6 +6,8 @@
 #define PIN_H
 
 #include <QPushButton>
+#include <QPropertyAnimation>
+#include <QGraphicsEffect>
 #include <QLayout>
 
 class Pin {
@@ -14,7 +16,10 @@ private:
 public:
     static const char* buttonStyles;
 
-    static void CreateButton(QGridLayout *grid, int r, int c, int digit);
+    static const char *textButtonTransparentStyles;
+
+    static QPushButton* CreateButton(QGridLayout *grid, int r, int c, int digit, const char *styles);
+    static QPushButton* CreateButton(QGridLayout *grid, int r, int c, const char *text, const char *styles);
 
     static void CreatePinInput(QVBoxLayout *layout);
 

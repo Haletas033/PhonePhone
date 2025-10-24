@@ -21,6 +21,7 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     lockScreenTime = new Time(Time::TIME24, layout, timeFont);
 
     Pin::CreatePinInput(layout);
+    Pin::HidePinInput();
 
     layout->addStretch();
 
@@ -30,4 +31,23 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
         lockScreenDate->SetTime();
     });
     timer->start(1000);
+}
+
+void LockScreen::mousePressEvent(QMouseEvent* event) {
+    startPos = event->pos();
+    dragging = true;
+}
+
+void LockScreen::mouseMoveEvent(QMouseEvent* event) {
+    if (!dragging) return;
+
+    int distance = startPos.y() - event->pos().y();
+    if (distance > height() / 2) {
+        Pin::ShowPinInput();
+        dragging = false;
+    }
+}
+
+void LockScreen::mouseReleaseEvent(QMouseEvent* event) {
+    dragging = false;
 }
