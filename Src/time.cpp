@@ -2,22 +2,26 @@
 // Created by halet on 10/23/2025.
 //
 
-#include "../Include/time.h"
+#include "../include/time.h"
 
-Time::Time(const TimeFlags flag) {
+Time::Time(const TimeFlags flag, QVBoxLayout* layout, const QFont& font) {
     label = new QLabel("??:??");
     timeFlag = flag;
     timeString = "";
     SetTime();
     label->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+    label->setFont(font);
+    layout->addWidget(label, 0);
 }
 
-Time::Time(const char* time) {
+Time::Time(const char* time, QVBoxLayout* layout, const QFont& font) {
     label = new QLabel("??:??");
     timeString = time;
     timeFlag = TIME_STRING;
     SetTime();
     label->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+    label->setFont(font);
+    layout->addWidget(label, 0);
 }
 
 void Time::SetTime() const {

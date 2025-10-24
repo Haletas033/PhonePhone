@@ -3,22 +3,29 @@
 #include <QBoxLayout>
 #include <QMainWindow>
 #include <QTimer>
-#include "../Include/time.h"
+#include "../include/time.h"
+#include <QPixmap>
 
+#include "../include/wallpaper.h"
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
     QWidget window;
     window.setFixedSize(300, 600);
-
-    const Time lockScreenDate(Time::DATE);
-    const Time lockScreenTime(Time::pTIME24);
+    Wallpaper lockScreenWallpaper("../textures/defaultWallpaper.jpg", window);
 
     auto* layout = new QVBoxLayout(&window);
 
-    layout->addWidget(lockScreenDate.label, 0);
-    layout->addWidget(lockScreenTime.label, 0);
+    QFont dateFont("Arial", 12);
+    dateFont.setWeight(QFont::Bold);
+    QFont timeFont("Arial", 24);
+    timeFont.setWeight(QFont::DemiBold);
+
+
+    const Time lockScreenDate(Time::DATE, layout, dateFont);
+    const Time lockScreenTime(Time::TIME24, layout, timeFont);
+
     layout->addStretch();
 
     window.show();
@@ -26,6 +33,7 @@ int main(int argc, char *argv[]) {
     auto* timer = new QTimer(&window);
     QObject::connect(timer, &QTimer::timeout, [&]() {
         lockScreenTime.SetTime();
+        lockScreenDate.SetTime();
     });
     timer->start(1000);
 

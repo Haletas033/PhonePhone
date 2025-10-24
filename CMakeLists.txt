@@ -13,6 +13,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
 add_executable(PhonePhone
         Src/main.cpp
         Src/time.cpp
+        Src/wallpaper.cpp
 )
 
 target_link_libraries(PhonePhone

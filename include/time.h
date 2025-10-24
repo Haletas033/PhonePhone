@@ -5,7 +5,9 @@
 #ifndef TIME_H
 #define TIME_H
 
+#include <qboxlayout.h>
 #include <QLabel>
+#include <QVBoxLayout>
 
 class Time {
 public:
@@ -19,13 +21,13 @@ public:
         TIME_STRING
     };
 
-    QLabel* label;
-    explicit Time(TimeFlags flag);
+    explicit Time(TimeFlags flag, QVBoxLayout* layout, const QFont& font);
 
-    explicit Time(const char *time);
+    explicit Time(const char *time, QVBoxLayout* layout, const QFont& font);
 
     void SetTime() const;
 private:
+    QLabel* label;
     TimeFlags timeFlag;
     const char* timeString;
 };
