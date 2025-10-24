@@ -14,9 +14,9 @@ class Pin {
 private:
     static QWidget* gridWidget;
 public:
-    static const char* buttonStyles;
+    static std::string buttonStyles;
 
-    static const char *textButtonTransparentStyles;
+    static std::string textButtonTransparentStyles;
 
     static QPushButton* CreateButton(QGridLayout *grid, int r, int c, int digit, const char *styles);
     static QPushButton* CreateButton(QGridLayout *grid, int r, int c, const char *text, const char *styles);

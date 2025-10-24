@@ -1,42 +1,14 @@
 #include "../include/pin.h"
 
+#include "../include/styleManager.h"
+
 QWidget* Pin::gridWidget = nullptr;
 
-const char* Pin::buttonStyles = R"(
-    QPushButton {
-        background-color: rgba(255, 255, 255, 50);
-        border: none;
-        border-radius: 25px;
-        color: white;
-        font-size: 18px;
-        font-weight: bold;
-    }
-    QPushButton:hover {
-        background-color: rgba(255, 255, 255, 120);
-    }
-    QPushButton:pressed {
-        background-color: rgba(255, 255, 255, 150);
-    }
-)";
-
-const char* Pin::textButtonTransparentStyles = R"(
-    QPushButton {
-        background-color: rgba(255, 255, 255, 0);
-        border: none;
-        border-radius: 25px;
-        color: white;
-        font-size: 14px;
-    }
-    QPushButton:hover {
-        background-color: rgba(255, 255, 255, 10);
-    }
-    QPushButton:pressed {
-        background-color: rgba(255, 255, 255, 20);
-    }
-)";
+std::string Pin::buttonStyles = StyleManager::LoadStyles(CIRCULAR_BUTTON);
+std::string Pin::textButtonTransparentStyles = StyleManager::LoadStyles(CIRCULAR_BUTTON_TRANSPARENT);
 
 QPushButton* Pin::CreateButton(QGridLayout *grid, const int r, const int c, const int digit,
-                               const char *styles = buttonStyles)
+                               const char *styles = buttonStyles.c_str())
 {
     const auto button = new QPushButton(QString::number(digit));
     button->setFixedSize(50, 50);
@@ -49,7 +21,7 @@ QPushButton* Pin::CreateButton(QGridLayout *grid, const int r, const int c, cons
 }
 
 QPushButton* Pin::CreateButton(QGridLayout *grid, const int r, const int c, const char *text,
-                               const char *styles = textButtonTransparentStyles)
+                               const char *styles = textButtonTransparentStyles.c_str())
 {
     const auto button = new QPushButton(text);
     button->setFixedSize(50, 50);
