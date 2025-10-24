@@ -21,6 +21,8 @@ public:
         TIME_STRING
     };
 
+    void SetupTime(QVBoxLayout *layout, const QFont &font) const;
+
     explicit Time(TimeFlags flag, QVBoxLayout* layout, const QFont& font);
 
     explicit Time(const char *time, QVBoxLayout* layout, const QFont& font);

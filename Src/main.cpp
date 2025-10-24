@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
     QWidget window;
-    window.setFixedSize(300, 600);
+    window.setFixedSize(300, 575);
     Wallpaper lockScreenWallpaper("../textures/defaultWallpaper.jpg", window);
 
     auto* layout = new QVBoxLayout(&window);

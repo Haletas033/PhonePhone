@@ -4,24 +4,27 @@
 
 #include "../include/time.h"
 
+void Time::SetupTime(QVBoxLayout* layout, const QFont& font) const {
+    SetTime();
+    label->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+    label->setFont(font);
+    layout->setContentsMargins(0, 50, 0, 0);
+    layout->addWidget(label, 0);
+}
+
+
 Time::Time(const TimeFlags flag, QVBoxLayout* layout, const QFont& font) {
     label = new QLabel("??:??");
     timeFlag = flag;
     timeString = "";
-    SetTime();
-    label->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
-    label->setFont(font);
-    layout->addWidget(label, 0);
+    SetupTime(layout, font);
 }
 
 Time::Time(const char* time, QVBoxLayout* layout, const QFont& font) {
     label = new QLabel("??:??");
     timeString = time;
     timeFlag = TIME_STRING;
-    SetTime();
-    label->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
-    label->setFont(font);
-    layout->addWidget(label, 0);
+    SetupTime(layout, font);
 }
 
 void Time::SetTime() const {
