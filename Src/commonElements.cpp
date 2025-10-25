@@ -4,9 +4,10 @@
 
 #include "../include/commonElements.h"
 
+
 QWidget* CommonElements::batteryFill = nullptr;
 int CommonElements::batteryX = 0, CommonElements::batteryY = 0, CommonElements::batteryW = 0, CommonElements::batteryH = 0;
-
+QLabel* CommonElements::batteryText = nullptr;
 
 void CommonElements::Battery(QWidget *parent, const int x, const int y, const int w, const int h) {
     auto* batteryOutline = new QLabel(parent);
@@ -58,11 +59,23 @@ void CommonElements::UpdateBatteryFill() {
 
 }
 
+void CommonElements::UpdateCommonElements() {
+    batteryText->setText(QString::number(SystemInfo::GetBatteryPercent()) + "%");
+    UpdateBatteryFill();
+}
+
 void CommonElements::SystemInfoCorner(QWidget* parent) {
     //Wi-Fi strength
 
+    //Battery %
+    batteryText = new QLabel(parent);
+    batteryText->setText(QString::number(SystemInfo::GetBatteryPercent()) + "%");
+    batteryText->setGeometry(245, 10, 25, 20);
+    batteryText->show();
+
     //Battery charge
     Battery(parent, 270, 10, 20, 20);
+
     //Underline
     Shapes::CreateBar(parent, 245, 30, 50, 2, 80, Qt::gray, 2);
 }

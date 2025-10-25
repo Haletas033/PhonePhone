@@ -16,8 +16,11 @@ public:
 
     static void UpdateBatteryFill();
 
+    static void UpdateCommonElements();
+
     static void SystemInfoCorner(QWidget *parent);
 private:
+    static QLabel* batteryText;
     static QWidget* batteryFill;
     static int batteryX, batteryY, batteryW, batteryH;
 };

@@ -48,7 +48,7 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     connect(timer, &QTimer::timeout, [&]() {
         lockScreenTime->SetTime();
         lockScreenDate->SetTime();
-        CommonElements::UpdateBatteryFill();
+        CommonElements::UpdateCommonElements();
     });
     timer->start(1000);
 }
