@@ -31,13 +31,15 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     lockScreenTime = new Time(Time::TIME24, layout, timeFont);
     lockScreenDate->Hide();
 
-    //Which chargingInfo out for dateTime after 4 seconds
+    swipeBar = Shapes::CreateBar(this, 25, 550, 250, 5, 255, Qt::white);
+
+    //switch charging info out for dateTime after 4 seconds
     QTimer::singleShot(4000, this, [&]() {
         lockScreenCharging->hide();
         lockScreenDate->Show();
     });
 
-    Pin::CreatePinInput(layout);
+    Pin::CreatePinInput(layout, swipeBar);
     Pin::HidePinInput();
 
     layout->addStretch();
@@ -59,8 +61,12 @@ void LockScreen::mouseMoveEvent(QMouseEvent* event) {
     if (!dragging) return;
 
     int distance = startPos.y() - event->pos().y();
-    if (distance > height() / 2) {
+
+    //Trigger if mouse travels more than 1 travelDistance of height
+    constexpr int travelDistance = 3;
+    if (distance > height() / travelDistance) {
         Pin::ShowPinInput();
+        swipeBar->hide();
         dragging = false;
     }
 }

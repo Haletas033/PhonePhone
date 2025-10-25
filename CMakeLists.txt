@@ -18,6 +18,7 @@ add_executable(PhonePhone
         Src/lockscreen.cpp
         Src/styleManager.cpp
         Src/systemInfo.cpp
+        Src/shapes.cpp
 )
 
 target_link_libraries(PhonePhone

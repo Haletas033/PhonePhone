@@ -33,7 +33,7 @@ QPushButton* Pin::CreateButton(QGridLayout *grid, const int r, const int c, cons
     return button;
 }
 
-void Pin::CreatePinInput(QVBoxLayout* layout) {
+void Pin::CreatePinInput(QVBoxLayout* layout, QWidget* swipeBar) {
     gridWidget = new QWidget();
     const auto grid = new QGridLayout(gridWidget);
 
@@ -57,6 +57,7 @@ void Pin::CreatePinInput(QVBoxLayout* layout) {
     const auto cancelButton = CreateButton(grid, 3, 2, "Cancel");
     QObject::connect(cancelButton, &QPushButton::clicked, [=]() {
         HidePinInput();
+        swipeBar->show();
     });
 
     layout->addStretch(1);

@@ -21,7 +21,7 @@ public:
     static QPushButton* CreateButton(QGridLayout *grid, int r, int c, int digit, const char *styles);
     static QPushButton* CreateButton(QGridLayout *grid, int r, int c, const char *text, const char *styles);
 
-    static void CreatePinInput(QVBoxLayout *layout);
+    static void CreatePinInput(QVBoxLayout *layout, QWidget *swipeBar);
 
     static void HidePinInput();
     static void ShowPinInput();

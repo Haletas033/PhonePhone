@@ -11,12 +11,14 @@
 #include "../include/time.h"
 #include "../include/pin.h"
 #include "../include/wallpaper.h"
+#include "../include/shapes.h"
 
 class LockScreen final : public QWidget {
 private:
     QPoint startPos;
     bool dragging;
 
+    QWidget* swipeBar;
     QLabel* lockScreenCharging;
     Time* lockScreenDate;
     Time* lockScreenTime;
