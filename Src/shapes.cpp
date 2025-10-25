@@ -5,7 +5,7 @@
 #include "../include/shapes.h"
 
 QWidget *Shapes::CreateBar(QWidget *parent, const int x, const int y, const int width, const int height,
-    const int opacity, const QColor &colour)
+    const int opacity, const QColor &colour, const float bevel)
 {
     auto* bar = new QWidget(parent);
     bar->setGeometry(x, y, width, height);
@@ -14,7 +14,7 @@ QWidget *Shapes::CreateBar(QWidget *parent, const int x, const int y, const int 
         .arg(colour.green())
         .arg(colour.blue())
         .arg(opacity)
-        .arg(height / 2)
+        .arg(height / bevel)
     );
     return bar;
 }

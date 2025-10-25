@@ -12,6 +12,8 @@
 #include "../include/pin.h"
 #include "../include/wallpaper.h"
 #include "../include/shapes.h"
+#include "../include/commonElements.h"
+#include "../include/systemInfo.h"
 
 class LockScreen final : public QWidget {
 private:

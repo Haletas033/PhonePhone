@@ -4,8 +4,6 @@
 
 #include "../include/lockscreen.h"
 
-#include "../include/systemInfo.h"
-
 LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     setFixedSize(300, 575);
 
@@ -33,6 +31,8 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
 
     swipeBar = Shapes::CreateBar(this, 25, 550, 250, 5, 255, Qt::white);
 
+    CommonElements::SystemInfoCorner(this);
+
     //switch charging info out for dateTime after 4 seconds
     QTimer::singleShot(4000, this, [&]() {
         lockScreenCharging->hide();
@@ -48,6 +48,7 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     connect(timer, &QTimer::timeout, [&]() {
         lockScreenTime->SetTime();
         lockScreenDate->SetTime();
+        CommonElements::UpdateBatteryFill();
     });
     timer->start(1000);
 }

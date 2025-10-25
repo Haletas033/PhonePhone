@@ -19,6 +19,7 @@ add_executable(PhonePhone
         Src/styleManager.cpp
         Src/systemInfo.cpp
         Src/shapes.cpp
+        Src/commonElements.cpp
 )
 
 target_link_libraries(PhonePhone
