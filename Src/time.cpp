@@ -12,6 +12,14 @@ void Time::SetupTime(QVBoxLayout* layout, const QFont& font) const {
     layout->addWidget(label, 0);
 }
 
+void Time::Show() const {
+    label->show();
+}
+
+void Time::Hide() const {
+    label->hide();
+}
+
 
 Time::Time(const TimeFlags flag, QVBoxLayout* layout, const QFont& font) {
     label = new QLabel("??:??");

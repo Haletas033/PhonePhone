@@ -23,6 +23,10 @@ public:
 
     void SetupTime(QVBoxLayout *layout, const QFont &font) const;
 
+    void Show() const;
+
+    void Hide() const;
+
     explicit Time(TimeFlags flag, QVBoxLayout* layout, const QFont& font);
 
     explicit Time(const char *time, QVBoxLayout* layout, const QFont& font);

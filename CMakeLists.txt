@@ -17,10 +17,12 @@ add_executable(PhonePhone
         Src/pin.cpp
         Src/lockscreen.cpp
         Src/styleManager.cpp
+        Src/systemInfo.cpp
 )
 
 target_link_libraries(PhonePhone
         Qt6::Core
         Qt6::Gui
         Qt6::Widgets
+        wlanapi
 )

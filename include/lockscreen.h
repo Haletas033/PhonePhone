@@ -17,6 +17,7 @@ private:
     QPoint startPos;
     bool dragging;
 
+    QLabel* lockScreenCharging;
     Time* lockScreenDate;
     Time* lockScreenTime;
 public:

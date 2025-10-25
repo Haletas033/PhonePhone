@@ -4,6 +4,8 @@
 
 #include "../include/lockscreen.h"
 
+#include "../include/systemInfo.h"
+
 LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     setFixedSize(300, 575);
 
@@ -16,9 +18,24 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     QFont timeFont("Arial", 24);
     timeFont.setWeight(QFont::DemiBold);
 
+    //Display quick charging info
+    const std::string isCharging = SystemInfo::IsCharging() ? "Charging, " : "";
+    const std::string chargeInfo = isCharging + std::to_string(SystemInfo::GetBatteryPercent()) + "% Charged";
+    lockScreenCharging = new QLabel(chargeInfo.data());
+    lockScreenCharging->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+    lockScreenCharging->setFont(dateFont);
+
+    layout->addWidget(lockScreenCharging);
 
     lockScreenDate = new Time(Time::DATE, layout, dateFont);
     lockScreenTime = new Time(Time::TIME24, layout, timeFont);
+    lockScreenDate->Hide();
+
+    //Which chargingInfo out for dateTime after 4 seconds
+    QTimer::singleShot(4000, this, [&]() {
+        lockScreenCharging->hide();
+        lockScreenDate->Show();
+    });
 
     Pin::CreatePinInput(layout);
     Pin::HidePinInput();
