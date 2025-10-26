@@ -12,14 +12,19 @@
 
 class CommonElements {
 public:
+    static void WiFi(QWidget *parent, int x, int y, int w, int h);
+
+    static void UpdateWiFi();
+
     static void Battery(QWidget *parent, int x, int y, int w, int h);
 
     static void UpdateBatteryFill();
 
-    static void UpdateCommonElements();
+    static void UpdateSystemInfoCorner();
 
     static void SystemInfoCorner(QWidget *parent);
 private:
+    static QLabel* WiFiIcon;
     static QLabel* batteryText;
     static QWidget* batteryFill;
     static int batteryX, batteryY, batteryW, batteryH;

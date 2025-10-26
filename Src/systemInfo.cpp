@@ -15,7 +15,7 @@ uint8_t SystemInfo::GetWifiStrength() {
     constexpr DWORD dwMaxClient = 2;
     DWORD dwCurVersion = 0;
     DWORD result = WlanOpenHandle(dwMaxClient, nullptr, &dwCurVersion, &hClient);
-    if (result == ERROR_SUCCESS) {
+    if (result != ERROR_SUCCESS) {
         return 0;
     }
 

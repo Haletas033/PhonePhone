@@ -4,10 +4,35 @@
 
 #include "../include/commonElements.h"
 
-
+QLabel* CommonElements::WiFiIcon = nullptr;
 QWidget* CommonElements::batteryFill = nullptr;
 int CommonElements::batteryX = 0, CommonElements::batteryY = 0, CommonElements::batteryW = 0, CommonElements::batteryH = 0;
 QLabel* CommonElements::batteryText = nullptr;
+
+void CommonElements::WiFi(QWidget *parent, const int x, const int y, const int w, const int h) {
+    uint8_t WiFiState = 1;
+    if (SystemInfo::GetWifiStrength() > 75) WiFiState = 4;
+    else if (SystemInfo::GetWifiStrength() > 50) WiFiState = 3;
+    else if (SystemInfo::GetWifiStrength() > 25) WiFiState = 2;
+
+    const QString WiFiPath = "../textures/WiFiStates/WiFi-" + QString::number(WiFiState) + ".png";
+
+    WiFiIcon = new QLabel(parent);
+    WiFiIcon->setPixmap(QPixmap(WiFiPath));
+    WiFiIcon->setScaledContents(true);
+    WiFiIcon->setGeometry(x,y,w,h);
+    WiFiIcon->show();
+}
+
+void CommonElements::UpdateWiFi() {
+    uint8_t WiFiState = 1;
+    if (SystemInfo::GetWifiStrength() > 75) WiFiState = 4;
+    else if (SystemInfo::GetWifiStrength() > 50) WiFiState = 3;
+    else if (SystemInfo::GetWifiStrength() > 25) WiFiState = 2;
+
+    const QString WiFiPath = "../textures/WiFiStates/WiFi-" + QString::number(WiFiState) + ".png";
+    WiFiIcon->setPixmap(QPixmap(WiFiPath));
+}
 
 void CommonElements::Battery(QWidget *parent, const int x, const int y, const int w, const int h) {
     auto* batteryOutline = new QLabel(parent);
@@ -28,7 +53,7 @@ void CommonElements::Battery(QWidget *parent, const int x, const int y, const in
     else colour = Qt::white;
 
     batteryFill = Shapes::CreateBar(parent, x+MARGIN-1, y+MARGIN*2,
-        fillBarWidth+MARGIN, h-(MARGIN*4)+1, 1, colour, 4);
+        fillBarWidth+MARGIN, h-(MARGIN*4)+1, 1, colour);
 
     batteryFill->show();
 
@@ -59,23 +84,25 @@ void CommonElements::UpdateBatteryFill() {
 
 }
 
-void CommonElements::UpdateCommonElements() {
+void CommonElements::UpdateSystemInfoCorner() {
+    UpdateWiFi();
     batteryText->setText(QString::number(SystemInfo::GetBatteryPercent()) + "%");
     UpdateBatteryFill();
 }
 
 void CommonElements::SystemInfoCorner(QWidget* parent) {
     //Wi-Fi strength
+    WiFi(parent, 228, 15, 10, 10);
 
     //Battery %
     batteryText = new QLabel(parent);
     batteryText->setText(QString::number(SystemInfo::GetBatteryPercent()) + "%");
-    batteryText->setGeometry(245, 10, 25, 20);
+    batteryText->setGeometry(240, 10, 30, 20);
     batteryText->show();
 
     //Battery charge
     Battery(parent, 270, 10, 20, 20);
 
     //Underline
-    Shapes::CreateBar(parent, 245, 30, 50, 2, 80, Qt::gray, 2);
+    Shapes::CreateBar(parent, 235, 30, 50, 2, 80, Qt::gray);
 }

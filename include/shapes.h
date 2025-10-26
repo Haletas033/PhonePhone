@@ -9,7 +9,7 @@
 class Shapes {
 public:
     static QWidget* CreateBar(QWidget *parent, int x, int y, int width, int height,
-        int opacity, const QColor &colour, float bevel = 2.);
+        int opacity, const QColor &colour);
 };
 
 #endif //SHAPES_H
