@@ -1,0 +1,7 @@
+{
+  "language": "english",
+  "lockScreenWallpaper": "../textures/defaultWallpaper.jpg",
+  "homeScreenWallpaper": "../textures/defaultWallpaper.jpg",
+  "time": "hour24",
+  "PIN": ""
+}

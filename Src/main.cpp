@@ -1,10 +1,11 @@
 #include <QApplication>
-#include "../include/lockscreen.h"
+#include "../include/screens/lockscreen.h"
+#include "../include/screens/setupScreen.h"
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-    LockScreen window;
+    SetupScreen window;
 
     window.show();
 

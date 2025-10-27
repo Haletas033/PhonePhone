@@ -2,7 +2,7 @@
 // Created by halet on 10/25/2025.
 //
 
-#include "../include/lockscreen.h"
+#include "../../include/screens/lockscreen.h"
 
 LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     setFixedSize(300, 575);

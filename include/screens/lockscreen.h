@@ -8,12 +8,12 @@
 #include <QTimer.h>
 #include <QVBoxLayout>
 #include <QMouseEvent>
-#include "../include/time.h"
-#include "../include/pin.h"
-#include "../include/wallpaper.h"
-#include "../include/shapes.h"
-#include "../include/commonElements.h"
-#include "../include/systemInfo.h"
+#include "../time.h"
+#include "../pin.h"
+#include "../wallpaper.h"
+#include "../shapes.h"
+#include "../commonElements.h"
+#include "../systemInfo.h"
 
 class LockScreen final : public QWidget {
 private:

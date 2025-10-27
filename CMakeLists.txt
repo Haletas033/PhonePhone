@@ -15,7 +15,8 @@ add_executable(PhonePhone
         Src/time.cpp
         Src/wallpaper.cpp
         Src/pin.cpp
-        Src/lockscreen.cpp
+        Src/screens/lockscreen.cpp
+        Src/screens/setupScreen.cpp
         Src/styleManager.cpp
         Src/systemInfo.cpp
         Src/shapes.cpp
