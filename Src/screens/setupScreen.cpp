@@ -4,6 +4,8 @@
 
 #include "../../include/screens/setupScreen.h"
 
+#include "../../include/languages.h"
+
 std::mt19937 SetupScreen::gen{std::random_device{}()};
 std::vector<std::string> SetupScreen::bag = {};
 size_t SetupScreen::currentIndex = 0;
@@ -16,8 +18,7 @@ std::vector<std::string> SetupScreen::welcomes = {
     "ようこそ!",
     "欢迎!",
     "добро пожаловать!",
-    "환영합니다!",
-    "Selamat datang!"
+    "환영합니다!"
 };
 
 void SetupScreen::FadeText(QLabel* text, const QString& newText) {\
@@ -57,17 +58,7 @@ void SetupScreen::ChangeText(QLabel* text, const std::vector<std::string> &optio
     FadeText(text, nextText);
 }
 
-SetupScreen::SetupScreen(QWidget *parent) : QWidget(parent) {
-    setFixedSize(300, 575);
-
-    //Black background
-    this->setAutoFillBackground(true);
-    QPalette palette = this->palette();
-    palette.setColor(QPalette::Window, Qt::black);
-    this->setPalette(palette);
-
-    auto* layout = new QVBoxLayout(this);
-
+QLabel* SetupScreen::Welcome(QLayout* layout) {
     const QFont welcomeFont("Segoe Script", 20);
 
     auto* welcome = new QLabel(this);
@@ -82,9 +73,69 @@ SetupScreen::SetupScreen(QWidget *parent) : QWidget(parent) {
     effect->setOpacity(1.0);
     welcome->show();
 
+    return welcome;
+}
+
+uint8_t SetupScreen::LangaugeSelection(QVBoxLayout* layout) {
+
+    layout->addStretch();
+
+    auto* selectionText = new QLabel(this);
+    selectionText->setText("Please select your language");
+    layout->addWidget(selectionText, 0, Qt::AlignCenter);
+
+    auto* selectionCombo = new QComboBox(this);
+
+    for (const auto& language : languages) {
+        selectionCombo->addItem(QString::fromStdString(language));
+    }
+
+    layout->addWidget(selectionCombo, 0, Qt::AlignCenter);
+
+    auto* selectionConfirm = new QPushButton("Confirm", this);
+    layout->addWidget(selectionConfirm, 0, Qt::AlignCenter);
+
+    layout->addStretch();
+    layout->setSpacing(5);
+
+    QEventLoop loop;
+    uint8_t result = 0;
+
+    connect(selectionConfirm, &QPushButton::clicked, this, [&]() {
+        result = selectionCombo->currentIndex();
+        loop.quit();
+    });
+
+    loop.exec();
+
+    return result;
+}
+
+SetupScreen::SetupScreen(QWidget *parent) : QWidget(parent) {
+    setFixedSize(300, 575);
+
+    //Black background
+    this->setAutoFillBackground(true);
+    QPalette palette = this->palette();
+    palette.setColor(QPalette::Window, Qt::black);
+    this->setPalette(palette);
+
+    auto* layout = new QVBoxLayout(this);
+
+    auto* welcome= Welcome(layout);
+
     auto* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, [welcome]() {
         ChangeText(welcome, welcomes);
     });
     timer->start(3000);
+
+    uint8_t lang;
+
+    QTimer::singleShot(15000, [&]() {
+        welcome->hide();
+        QTimer::singleShot(0, this, [&]() {
+            lang = LangaugeSelection(layout);
+        });
+    });
 }

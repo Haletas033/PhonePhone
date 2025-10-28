@@ -7,7 +7,10 @@
 
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
+#include <QPushButton>
 #include <QVBoxLayout>
+#include <QDialog>
+#include <QComboBox>
 #include <QLabel.h>
 #include <QFont>
 #include <QWidget.h>
@@ -26,6 +29,10 @@ public:
     static void RefillBag(const std::vector<std::string> &options);
 
     static void ChangeText(QLabel *text, const std::vector<std::string> &options);
+
+    QLabel *Welcome(QLayout *layout);
+
+    uint8_t LangaugeSelection(QVBoxLayout *layout);
 
     explicit SetupScreen(QWidget* parent = nullptr);
 };
