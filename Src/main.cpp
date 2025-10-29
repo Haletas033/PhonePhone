@@ -5,10 +5,9 @@
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-    SetupScreen setup;
+    SetupScreen window;
 
-    setup.show();
-
+    window.show();
 
     return QApplication::exec();
 }

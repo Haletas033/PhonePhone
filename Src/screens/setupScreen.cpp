@@ -6,6 +6,7 @@
 
 #include "../../include/languages.h"
 
+uint8_t SetupScreen::lang = 0;
 std::mt19937 SetupScreen::gen{std::random_device{}()};
 std::vector<std::string> SetupScreen::bag = {};
 size_t SetupScreen::currentIndex = 0;
@@ -86,8 +87,8 @@ uint8_t SetupScreen::LangaugeSelection(QVBoxLayout* layout) {
 
     auto* selectionCombo = new QComboBox(this);
 
-    for (const auto& language : languages) {
-        selectionCombo->addItem(QString::fromStdString(language));
+    for (const auto &language : languages) {
+        selectionCombo->addItem(language.data());
     }
 
     layout->addWidget(selectionCombo, 0, Qt::AlignCenter);
@@ -130,12 +131,11 @@ SetupScreen::SetupScreen(QWidget *parent) : QWidget(parent) {
     });
     timer->start(3000);
 
-    uint8_t lang;
-
-    QTimer::singleShot(15000, [&]() {
+    QTimer::singleShot(15000, this, [this, welcome, layout]() {
+        if (!welcome || !layout)
+            return;
         welcome->hide();
-        QTimer::singleShot(0, this, [&]() {
-            lang = LangaugeSelection(layout);
-        });
+        lang = LangaugeSelection(layout);
     });
+
 }
