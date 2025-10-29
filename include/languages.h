@@ -19,15 +19,14 @@
 
 inline std::vector<std::string> languages = {
     "English",
-    "Chinese",
-    "German",
-    "Italian",
-    "French",
-    "Spanish",
-    "Russian",
-    "Japanese",
-    "Korean"
-
+    "中文",
+    "Deutsch",
+    "Italiano",
+    "Français",
+    "Español",
+    "Русский",
+    "日本語",
+    "한국어"
 };
 
 #endif //LANGUAGES_H
