@@ -21,6 +21,8 @@ add_executable(PhonePhone
         Src/systemInfo.cpp
         Src/shapes.cpp
         Src/commonElements.cpp
+        include/screens/lockscreen.h
+        include/screens/setupScreen.h
 )
 
 target_link_libraries(PhonePhone

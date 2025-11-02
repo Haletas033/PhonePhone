@@ -136,6 +136,8 @@ SetupScreen::SetupScreen(QWidget *parent) : QWidget(parent) {
             return;
         welcome->hide();
         lang = LangaugeSelection(layout);
+        emit SetupFinished();
     });
+
 
 }

@@ -7,9 +7,22 @@
 LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     setFixedSize(300, 575);
 
-    Wallpaper lockScreenWallpaper("../textures/defaultWallpaper.jpg", *this);
+    setupScreen = new SetupScreen(this);
+    setupScreen->setGeometry(0, 0, width(), height());
+    setupScreen->show();
 
-    auto* layout = new QVBoxLayout(this);
+    lockScreenWidget = new QWidget(this);
+    lockScreenWidget->setGeometry(0, 0, width(), height());
+    lockScreenWidget->hide();
+
+    connect(setupScreen, &SetupScreen::SetupFinished, this, [this]() {
+        setupScreen->hide();
+        lockScreenWidget->show();
+    });
+
+    Wallpaper lockScreenWallpaper("../textures/defaultWallpaper.jpg", *lockScreenWidget);
+
+    auto* layout = new QVBoxLayout(lockScreenWidget);
 
     QFont dateFont("Arial", 12);
     dateFont.setWeight(QFont::Bold);
@@ -29,12 +42,12 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     lockScreenTime = new Time(Time::TIME24, layout, timeFont);
     lockScreenDate->Hide();
 
-    swipeBar = Shapes::CreateBar(this, 25, 550, 250, 5, 255, Qt::white);
+    swipeBar = Shapes::CreateBar(lockScreenWidget, 25, 550, 250, 5, 255, Qt::white);
 
-    CommonElements::SystemInfoCorner(this);
+    CommonElements::SystemInfoCorner(lockScreenWidget);
 
     //switch charging info out for dateTime after 4 seconds
-    QTimer::singleShot(4000, this, [&]() {
+    QTimer::singleShot(4000, lockScreenWidget, [&]() {
         lockScreenCharging->hide();
         lockScreenDate->Show();
     });
@@ -44,7 +57,7 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
 
     layout->addStretch();
 
-    auto* timer = new QTimer(this);
+    auto* timer = new QTimer(lockScreenWidget);
     connect(timer, &QTimer::timeout, [&]() {
         lockScreenTime->SetTime();
         lockScreenDate->SetTime();

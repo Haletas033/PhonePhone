@@ -11,13 +11,14 @@
 #include <QVBoxLayout>
 #include <QDialog>
 #include <QComboBox>
-#include <QLabel.h>
+#include <QLabel>
 #include <QFont>
-#include <QWidget.h>
+#include <QWidget>
 #include <QTimer>
 #include <random>
 
 class SetupScreen final : public QWidget {
+    Q_OBJECT
 private:
     static std::vector<std::string> welcomes;
     static std::vector<std::string> bag;
@@ -36,6 +37,8 @@ public:
     uint8_t LangaugeSelection(QVBoxLayout *layout);
 
     explicit SetupScreen(QWidget* parent = nullptr);
+signals:
+    void SetupFinished();
 };
 
 #endif //SETUPSCREEN_H

@@ -8,6 +8,8 @@
 #include <QTimer.h>
 #include <QVBoxLayout>
 #include <QMouseEvent>
+
+#include "setupScreen.h"
 #include "../time.h"
 #include "../pin.h"
 #include "../wallpaper.h"
@@ -16,9 +18,13 @@
 #include "../systemInfo.h"
 
 class LockScreen final : public QWidget {
+    Q_OBJECT
 private:
     QPoint startPos;
     bool dragging;
+
+    SetupScreen* setupScreen = nullptr;
+    QWidget* lockScreenWidget = nullptr;
 
     QWidget* swipeBar;
     QLabel* lockScreenCharging;
