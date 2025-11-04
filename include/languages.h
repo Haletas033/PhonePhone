@@ -29,4 +29,29 @@ inline std::vector<std::string> languages = {
     "한국어"
 };
 
+inline std::unordered_map<std::string, std::vector<std::string>> translation = {
+    {"Charging", {
+        "Charging, ",
+        "充电中, ",
+        "Wird geladen, ",
+        "In carica, ",
+        "En charge, ",
+        "Cargando, ",
+        "Заряжается, ",
+        "充電中 ,",
+        "충전 중 ,"
+    }},
+    {"Charged", {
+        "% Charged",
+        "% 已充电",
+        "% Aufgeladen",
+        "% Carico",
+        "% Chargé",
+        "% Cargado",
+        "% Заряжено",
+        "% 充電済み",
+        "% 충전됨"
+    }}
+};
+
 #endif //LANGUAGES_H

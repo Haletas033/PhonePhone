@@ -24,8 +24,9 @@ private:
     static std::vector<std::string> bag;
     static size_t currentIndex;
     static std::mt19937 gen;
-    static uint8_t lang;
 public:
+    static uint8_t lang;
+
     static void FadeText(QLabel *text, const QString &newText);
 
     static void RefillBag(const std::vector<std::string> &options);

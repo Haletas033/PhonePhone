@@ -4,6 +4,8 @@
 
 #include "../../include/screens/lockscreen.h"
 
+#include "../../include/languages.h"
+
 LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     setFixedSize(300, 575);
 
@@ -15,11 +17,6 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     lockScreenWidget->setGeometry(0, 0, width(), height());
     lockScreenWidget->hide();
 
-    connect(setupScreen, &SetupScreen::SetupFinished, this, [this]() {
-        setupScreen->hide();
-        lockScreenWidget->show();
-    });
-
     Wallpaper lockScreenWallpaper("../textures/defaultWallpaper.jpg", *lockScreenWidget);
 
     auto* layout = new QVBoxLayout(lockScreenWidget);
@@ -30,8 +27,8 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
     timeFont.setWeight(QFont::DemiBold);
 
     //Display quick charging info
-    const std::string isCharging = SystemInfo::IsCharging() ? "Charging, " : "";
-    const std::string chargeInfo = isCharging + std::to_string(SystemInfo::GetBatteryPercent()) + "% Charged";
+    const std::string isCharging = SystemInfo::IsCharging() ? translation["Charging"][1] : "";
+    const std::string chargeInfo = isCharging + std::to_string(SystemInfo::GetBatteryPercent()) + translation["Charging"][1];
     lockScreenCharging = new QLabel(chargeInfo.data());
     lockScreenCharging->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
     lockScreenCharging->setFont(dateFont);
@@ -46,23 +43,39 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
 
     CommonElements::SystemInfoCorner(lockScreenWidget);
 
-    //switch charging info out for dateTime after 4 seconds
-    QTimer::singleShot(4000, lockScreenWidget, [&]() {
-        lockScreenCharging->hide();
-        lockScreenDate->Show();
-    });
-
     Pin::CreatePinInput(layout, swipeBar);
     Pin::HidePinInput();
 
     layout->addStretch();
 
     auto* timer = new QTimer(lockScreenWidget);
+    connect(setupScreen, &SetupScreen::SetupFinished, this, [this]() {
+        setupScreen->hide();
+        lockScreenWidget->show();
+
+        //Show charging info when setup is finished
+        const std::string isCharging = SystemInfo::IsCharging() ? translation["Charging"][setupScreen->lang] : "";
+        const std::string chargeInfo = isCharging + std::to_string(SystemInfo::GetBatteryPercent()) + translation["Charging"][setupScreen->lang];
+        lockScreenCharging->setText(chargeInfo.data());
+        lockScreenCharging->show();
+
+        //Switch charging info out for date after 4 seconds
+        QTimer::singleShot(4000, lockScreenWidget, [this]() {
+            lockScreenCharging->hide();
+            lockScreenDate->Show();
+        });
+    });
+
     connect(timer, &QTimer::timeout, [&]() {
         lockScreenTime->SetTime();
         lockScreenDate->SetTime();
         CommonElements::UpdateSystemInfoCorner();
+
+        const std::string isCharging = SystemInfo::IsCharging() ? translation["Charging"][setupScreen->lang] : "";
+        const std::string chargeInfo = isCharging + std::to_string(SystemInfo::GetBatteryPercent()) + translation["Charging"][setupScreen->lang];
+        lockScreenCharging->setText(chargeInfo.data());
     });
+
     timer->start(1000);
 }
 
