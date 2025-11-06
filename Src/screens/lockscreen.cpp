@@ -55,7 +55,7 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
 
         //Show charging info when setup is finished
         const std::string isCharging = SystemInfo::IsCharging() ? translation["Charging"][setupScreen->lang] : "";
-        const std::string chargeInfo = isCharging + std::to_string(SystemInfo::GetBatteryPercent()) + translation["Charging"][setupScreen->lang];
+        const std::string chargeInfo = isCharging + std::to_string(SystemInfo::GetBatteryPercent()) + translation["Charged"][setupScreen->lang];
         lockScreenCharging->setText(chargeInfo.data());
         lockScreenCharging->show();
 
@@ -72,7 +72,7 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
         CommonElements::UpdateSystemInfoCorner();
 
         const std::string isCharging = SystemInfo::IsCharging() ? translation["Charging"][setupScreen->lang] : "";
-        const std::string chargeInfo = isCharging + std::to_string(SystemInfo::GetBatteryPercent()) + translation["Charging"][setupScreen->lang];
+        const std::string chargeInfo = isCharging + std::to_string(SystemInfo::GetBatteryPercent()) + translation["Charged"][setupScreen->lang];
         lockScreenCharging->setText(chargeInfo.data());
     });
 
