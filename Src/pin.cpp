@@ -3,6 +3,10 @@
 #include "../include/styleManager.h"
 
 QWidget* Pin::gridWidget = nullptr;
+QPushButton* Pin::digits[10] = {nullptr};
+QEventLoop* Pin::eventLoop = nullptr;
+int Pin::remainingDigits = 0;
+std::vector<int> Pin::digitsBuffer;
 
 std::string Pin::buttonStyles = StyleManager::LoadStyles(CIRCULAR_BUTTON);
 std::string Pin::textButtonTransparentStyles = StyleManager::LoadStyles(CIRCULAR_BUTTON_TRANSPARENT);
@@ -46,23 +50,56 @@ void Pin::CreatePinInput(QVBoxLayout* layout, QWidget* swipeBar) {
     //Create main 9 buttons
     for (int r = 0; r < rows; ++r) {
         for (int c = 0; c < cols; ++c) {
-            CreateButton(grid, r, c, digit++);
+            digits[digit] = CreateButton(grid, r, c, digit++);
         }
     }
 
     //0 Button
-    CreateButton(grid, 3, 1, 0);
+    digits[0] = CreateButton(grid, 3, 1, 0);
 
-    //CancelButton
+    //Connect every digit
+    for (int d = 0; d < 11; d++) {
+        QObject::connect(digits[d], &QPushButton::clicked, [d]() {
+            DigitPressed(d-1);
+        });
+    }
+
+    //Connect Cancel Button
     const auto cancelButton = CreateButton(grid, 3, 2, "Cancel");
     QObject::connect(cancelButton, &QPushButton::clicked, [=]() {
         HidePinInput();
-        swipeBar->show();
+        if (swipeBar) swipeBar->show();
     });
 
     layout->addStretch(1);
     layout->addWidget(gridWidget, 0, Qt::AlignCenter);
     layout->addStretch(2);
+}
+
+void Pin::DigitPressed(const int digit) {
+    digitsBuffer.push_back(digit);
+    if (eventLoop && static_cast<int>(digitsBuffer.size()) >= remainingDigits) {
+        eventLoop->quit();
+    }
+}
+
+uint16_t Pin::GetNDigits(const int digits) {
+    digitsBuffer.clear();
+    remainingDigits = digits;
+
+    QEventLoop loop;
+    eventLoop = &loop;
+    loop.exec();
+
+    eventLoop = nullptr;
+
+    uint16_t result = 0;
+    for (const int d : digitsBuffer) {
+        result = result * 10 + d;
+    }
+
+    qDebug() << result;
+    return result;
 }
 
 void Pin::HidePinInput() {

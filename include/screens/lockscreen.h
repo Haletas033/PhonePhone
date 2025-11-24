@@ -8,6 +8,7 @@
 #include <QTimer.h>
 #include <QVBoxLayout>
 #include <QMouseEvent>
+#include <locale>
 
 #include "setupScreen.h"
 #include "../time.h"

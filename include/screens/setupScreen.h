@@ -37,6 +37,8 @@ public:
 
     uint8_t LangaugeSelection(QVBoxLayout *layout);
 
+    uint16_t PinSelection(QVBoxLayout *layout);
+
     explicit SetupScreen(QWidget* parent = nullptr);
 signals:
     void SetupFinished();

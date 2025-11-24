@@ -5,6 +5,7 @@
 #include "../../include/screens/setupScreen.h"
 
 #include "../../include/languages.h"
+#include "../../include/pin.h"
 
 uint8_t SetupScreen::lang = 0;
 std::mt19937 SetupScreen::gen{std::random_device{}()};
@@ -112,6 +113,25 @@ uint8_t SetupScreen::LangaugeSelection(QVBoxLayout* layout) {
     return result;
 }
 
+uint16_t SetupScreen::PinSelection(QVBoxLayout* layout) {
+    Pin::CreatePinInput(layout);
+
+    QEventLoop loop;
+    uint8_t result = 0;
+
+    auto* selectionConfirm = new QPushButton("Confirm", this);
+    layout->addWidget(selectionConfirm, 0, Qt::AlignCenter);
+    const uint16_t pin = Pin::GetNDigits(4);
+
+    connect(selectionConfirm, &QPushButton::clicked, this, [&]() {
+        loop.quit();
+    });
+
+    loop.exec();
+
+    return pin;
+}
+
 SetupScreen::SetupScreen(QWidget *parent) : QWidget(parent) {
     setFixedSize(300, 575);
 
@@ -136,8 +156,7 @@ SetupScreen::SetupScreen(QWidget *parent) : QWidget(parent) {
             return;
         welcome->hide();
         lang = LangaugeSelection(layout);
+        PinSelection(layout);
         emit SetupFinished();
     });
-
-
 }

@@ -1,5 +1,5 @@
 {
-  "language": "english",
+  "language": 0,
   "lockScreenWallpaper": "../textures/defaultWallpaper.jpg",
   "homeScreenWallpaper": "../textures/defaultWallpaper.jpg",
   "time": "hour24",
