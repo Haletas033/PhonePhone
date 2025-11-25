@@ -11,29 +11,30 @@
 #include <QGraphicsEffect>
 #include <QLayout>
 
+#include "styleManager.h"
+
 class Pin {
 private:
-    static QWidget* gridWidget;
-    static QPushButton* digits[10];
-    static std::vector<int> digitsBuffer;
-    static QEventLoop* eventLoop;
-    static int remainingDigits;
+    QWidget* gridWidget = nullptr;
+    QPushButton* digits[10] = {nullptr};
+    QEventLoop* eventLoop = nullptr;
+    int remainingDigits = 0;
+    std::vector<int> digitsBuffer;
 public:
     static std::string buttonStyles;
-
     static std::string textButtonTransparentStyles;
 
-    static QPushButton* CreateButton(QGridLayout *grid, int r, int c, int digit, const char *styles);
-    static QPushButton* CreateButton(QGridLayout *grid, int r, int c, const char *text, const char *styles);
+    QPushButton* CreateButton(QGridLayout *grid, int r, int c, int digit, const char *styles);
+    QPushButton* CreateButton(QGridLayout *grid, int r, int c, const char *text, const char *styles) const;
 
-    static void CreatePinInput(QVBoxLayout *layout, QWidget *swipeBar = nullptr);
+    void CreatePinInput(QVBoxLayout *layout, QWidget *swipeBar = nullptr);
 
-    static void DigitPressed(int digit);
+    void DigitPressed(int digit);
 
-    static uint16_t GetNDigits(int digits);
+    uint16_t GetNDigits(int digits);
 
-    static void HidePinInput();
-    static void ShowPinInput();
+    void HidePinInput();
+    void ShowPinInput();
 };
 
 #endif //PIN_H

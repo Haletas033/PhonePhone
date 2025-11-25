@@ -43,8 +43,8 @@ LockScreen::LockScreen(QWidget *parent) : QWidget(parent) {
 
     CommonElements::SystemInfoCorner(lockScreenWidget);
 
-    Pin::CreatePinInput(layout, swipeBar);
-    Pin::HidePinInput();
+    pin.CreatePinInput(layout, swipeBar);
+    pin.HidePinInput();
 
     layout->addStretch();
 
@@ -92,8 +92,15 @@ void LockScreen::mouseMoveEvent(QMouseEvent* event) {
     //Trigger if mouse travels more than 1 travelDistance of height
     constexpr int travelDistance = 3;
     if (distance > height() / travelDistance) {
-        Pin::ShowPinInput();
+        pin.ShowPinInput();
         swipeBar->hide();
+
+        const uint16_t pinCode = pin.GetNDigits(4);
+        qDebug() << "LockScreen PIN entered:" << pinCode;
+
+        pin.HidePinInput();
+        swipeBar->show();
+
         dragging = false;
     }
 }

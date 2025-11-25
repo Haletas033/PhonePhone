@@ -114,14 +114,15 @@ uint8_t SetupScreen::LangaugeSelection(QVBoxLayout* layout) {
 }
 
 uint16_t SetupScreen::PinSelection(QVBoxLayout* layout) {
-    Pin::CreatePinInput(layout);
+    Pin pin;
+    pin.CreatePinInput(layout);
 
     QEventLoop loop;
     uint8_t result = 0;
 
     auto* selectionConfirm = new QPushButton("Confirm", this);
     layout->addWidget(selectionConfirm, 0, Qt::AlignCenter);
-    const uint16_t pin = Pin::GetNDigits(4);
+    const uint16_t pinCode = pin.GetNDigits(4);
 
     connect(selectionConfirm, &QPushButton::clicked, this, [&]() {
         loop.quit();
@@ -129,7 +130,7 @@ uint16_t SetupScreen::PinSelection(QVBoxLayout* layout) {
 
     loop.exec();
 
-    return pin;
+    return pinCode;
 }
 
 SetupScreen::SetupScreen(QWidget *parent) : QWidget(parent) {

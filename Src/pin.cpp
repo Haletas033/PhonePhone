@@ -2,12 +2,6 @@
 
 #include "../include/styleManager.h"
 
-QWidget* Pin::gridWidget = nullptr;
-QPushButton* Pin::digits[10] = {nullptr};
-QEventLoop* Pin::eventLoop = nullptr;
-int Pin::remainingDigits = 0;
-std::vector<int> Pin::digitsBuffer;
-
 std::string Pin::buttonStyles = StyleManager::LoadStyles(CIRCULAR_BUTTON);
 std::string Pin::textButtonTransparentStyles = StyleManager::LoadStyles(CIRCULAR_BUTTON_TRANSPARENT);
 
@@ -25,8 +19,7 @@ QPushButton* Pin::CreateButton(QGridLayout *grid, const int r, const int c, cons
 }
 
 QPushButton* Pin::CreateButton(QGridLayout *grid, const int r, const int c, const char *text,
-                               const char *styles = textButtonTransparentStyles.c_str())
-{
+                               const char *styles = textButtonTransparentStyles.c_str()) const {
     const auto button = new QPushButton(text);
     button->setFixedSize(50, 50);
 
@@ -58,8 +51,8 @@ void Pin::CreatePinInput(QVBoxLayout* layout, QWidget* swipeBar) {
     digits[0] = CreateButton(grid, 3, 1, 0);
 
     //Connect every digit
-    for (int d = 0; d < 11; d++) {
-        QObject::connect(digits[d], &QPushButton::clicked, [d]() {
+    for (int d = 0; d < 11; ++d) {
+        QObject::connect(digits[d], &QPushButton::clicked, [d, this]() {
             DigitPressed(d-1);
         });
     }

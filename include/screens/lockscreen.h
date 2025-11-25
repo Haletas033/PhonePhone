@@ -31,6 +31,8 @@ private:
     QLabel* lockScreenCharging;
     Time* lockScreenDate;
     Time* lockScreenTime;
+
+    Pin pin;
 public:
     explicit LockScreen(QWidget* parent = nullptr);
 
