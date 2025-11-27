@@ -110,6 +110,11 @@ uint8_t SetupScreen::LangaugeSelection(QVBoxLayout* layout) {
 
     loop.exec();
 
+    //Cleanup
+    delete selectionText;
+    delete selectionCombo;
+    delete selectionConfirm;
+
     return result;
 }
 

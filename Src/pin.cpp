@@ -38,12 +38,12 @@ void Pin::CreatePinInput(QVBoxLayout* layout, QWidget* swipeBar) {
 
     constexpr int rows = 3;
     constexpr int cols = 3;
-    int digit = 1;
+    int digit = 0;
 
     //Create main 9 buttons
     for (int r = 0; r < rows; ++r) {
         for (int c = 0; c < cols; ++c) {
-            digits[digit] = CreateButton(grid, r, c, digit++);
+            digits[digit] = CreateButton(grid, r, c, ++digit);
         }
     }
 
@@ -51,9 +51,9 @@ void Pin::CreatePinInput(QVBoxLayout* layout, QWidget* swipeBar) {
     digits[0] = CreateButton(grid, 3, 1, 0);
 
     //Connect every digit
-    for (int d = 0; d < 11; ++d) {
+    for (int d = 0; d < 10; ++d) {
         QObject::connect(digits[d], &QPushButton::clicked, [d, this]() {
-            DigitPressed(d-1);
+            DigitPressed(d);
         });
     }
 
