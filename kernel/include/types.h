@@ -1,6 +1,8 @@
 #include <cstdint>
 using HotPermissionMap = uint_fast64_t;
+using KillSwitchMap = uint_fast64_t;
 using ColdPermissionMap = uint_least64_t;
+using ProcessId = uint32_t;
 
 enum class PermissionLevel {
 	DENIED,
@@ -31,4 +33,15 @@ enum class Permission {
 	RUN_IN_BACKGROUND,
 	RUN_HEADLESS,
 	INTER_APP
+};
+
+enum class KernelError {
+	INVALID_ARGUMENT,
+	PROCESS_NOT_FOUND,
+	PERMISSION_NOT_FOUND,
+	PERMISSION_NOT_SET,
+	PERMISSION_DENIED,
+	ALREADY_EXISTS,
+	PARITION_NOT_FOUND,
+	AUTH_FAILED
 };
