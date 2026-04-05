@@ -1,3 +1,6 @@
+#ifndef PERMISSIONS_H
+#define PERMISSIONS_H
+
 #include "types.h"
 #include <cstdint>
 #include <expected>
@@ -24,3 +27,5 @@ public:
 	void setKillSwitch(Permission permission, bool shouldKill);
 	std::expected<bool, KernelError> isKilledGlobally(Permission permission);
 };
+
+#endif //PERMISSIONS_H

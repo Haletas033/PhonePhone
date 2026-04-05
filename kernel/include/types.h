@@ -1,3 +1,6 @@
+#ifndef PERMISSION_TYPES_H
+#define PERMISSION_TYPES_H
+
 #include <cstdint>
 using HotPermissionMap = uint_fast64_t;
 using KillSwitchMap = uint_fast64_t;
@@ -45,3 +48,4 @@ enum class KernelError {
 	PARITION_NOT_FOUND,
 	AUTH_FAILED
 };
+#endif //PERMISSION_TYPES_H
