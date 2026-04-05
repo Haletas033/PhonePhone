@@ -26,6 +26,8 @@ enum class Permission {
 	SETTINGS,
 
 	//COLD
+	COLD_START,
+
 	FILE_READ_ROOT,
 	FILE_WRITE_ROOT,
 	CLIPBOARD,
